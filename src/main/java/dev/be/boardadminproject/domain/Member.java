@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -40,6 +41,17 @@ public class Member extends BaseEntity{
     private String nickname;
     private String memo;
 
+    public void addRoleType(RoleType roleType) {
+        this.getRoleTypes().add(roleType);
+    }
+
+    public void addRoleTypes(Collection<RoleType> roleTypes) {
+        this.getRoleTypes().addAll(roleTypes);
+    }
+
+    public void removeRoleType(RoleType roleType) {
+        this.getRoleTypes().remove(roleType);
+    }
 
     @Override
     public boolean equals(Object o) {
