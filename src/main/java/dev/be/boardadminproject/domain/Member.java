@@ -3,10 +3,7 @@ package dev.be.boardadminproject.domain;
 import dev.be.boardadminproject.domain.constant.RoleType;
 import dev.be.boardadminproject.domain.converter.RoleTypesConverter;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Collection;
@@ -35,6 +32,7 @@ public class Member extends BaseEntity{
 
     @Convert(converter = RoleTypesConverter.class)
     @Column(nullable = false)
+    @Builder.Default
     private Set<RoleType> roleTypes = new LinkedHashSet<>();
 
     private String email;
