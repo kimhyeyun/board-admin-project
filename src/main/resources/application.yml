@@ -20,7 +20,7 @@ spring:
     livereload:
       port: 35730
   datasource:
-    url: jdbc:mysql://localhost:3306/board
+    url: jdbc:mysql://localhost:3306/board_admin
     username: root
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
