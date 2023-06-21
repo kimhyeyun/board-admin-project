@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="common_head(title, links)">
+
+    <meta charset="UTF-8">
+    <title th:replace="${title}">공통 메타데이터</title>
+
+  <!-- 공통 스타일 -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="/static/js/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="/static/css/adminlte.min.css">
+
+  <!-- 페이지 전용 스타일 -->
+  <link th:href="${links}">
+</head>
+</html>

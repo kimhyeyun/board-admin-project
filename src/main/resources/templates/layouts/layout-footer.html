@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공통 푸터</title>
+</head>
+<body>
+  <footer class="main-footer accent-dark">
+    <!-- To the right -->
+    <div class="float-right d-none d-sm-inline">
+      <a th:href="@{https://fastcampus.co.kr/}" th:text="'FastCampus'">우측 링크</a>
+    </div>
+
+    <!-- Default to the left -->
+    <strong><a th:href="@{https://github.com/kimhyeyun/board-admin-project}" th:text="'게시판 어드민 프로젝트 GitHub'">대표 링크</a></strong>
+  </footer>
+</body>
+</html>
