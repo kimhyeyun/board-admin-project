@@ -1,10 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layouts/layout-head.html :: common_head(~{::title}, (~{::link} ?: ~{}))}">
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>어드민 회원 페이지</title>
 
+    <link rel="stylesheet" href="/static/js/plugins/jsgrid/jsgrid.min.css">
+    <link rel="stylesheet" href="/static/js/plugins/jsgrid/jsgrid-theme.min.css">
+</head>
+<body class="hold-transition sidebar-mini">
+
+    <div class="wrapper">
+        <header th:replace="~{layouts/layout-header.html :: header}">헤더 삽입부</header>
+        <aside th:replace="~{layouts/layout-left-aside.html :: aside}">왼쪽 사이드바 삽입부</aside>
+
+        <!-- Main content-->
+        <main th:replace="~{layouts/layout-main-table.html :: common_main_table('어드민 회원', (~{::#main-table} ?: ~{}))}">
+            <div id="jsgrid-admin-members"></div>
+        </main>
+        <!-- /.content -->
+
+        <aside th:replace="~{layouts/layout-right-aside.html :: aside}"></aside>
+        <footer th:replace="~{layouts/layout-footer.html :: footer}"></footer>
+    </div>
+
+    <!--Required Scripts -->
+    <script th:replace="~{layouts/layout-script.html :: script}"></script>
+
+    <!-- 페이지 전용 스크립트 -->
+    <script src="/static/js/plugins/jsgrid/jsgrid.min.js"></script>
+    <script>
+        $(function () {
+            $("#jsgrid-admin-members").jsGrid({
+                height: "100%",
+                width: "100%",
+
+                inserting: true,
+                editing: true,
+                sorting: true,
+                paging: false,
+
+                data: [
+                    {
+                        "memberId": "yun",
+                        "nickname": "Yun",
+                        "email": "yun@email.com",
+                        "memo": "test memo.",
+                        "roleTypes": "ADMIN",
+                        "createdBy": "Yun",
+                        "createdAt": "2022-01-01 00:00:00"
+                    }
+                ],
+
+                fields: [
+                    { name: "memberId", title: "유저 ID", type: "text", width: 70 },
+                    { name: "nickname", title: "닉네임", type: "text", width: 60 },
+                    { name: "email", title: "이메일", type: "text", width: 120 },
+                    { name: "memo", title: "메모", type: "text", width: 150 },
+                    { name: "roleTypes", title: "권한", type: "select", items: [{"name": "ADMIN", "description": "관리자"}], valueField: "name", textField: "description", width: 100 },
+                    { name: "createdBy", title: "작성자", type: "text", width: 60 },
+                    { name: "createdAt", title: "작성일시", type: "text", width: 100 },
+                    { type: "control" }
+                ]
+            });
+        });
+    </script>
 </body>
 </html>
