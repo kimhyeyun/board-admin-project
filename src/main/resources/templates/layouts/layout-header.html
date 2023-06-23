@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>공통 헤더 (네비게이션 바)</title>
@@ -141,6 +141,20 @@
           </div>
         </li>
         <!-- */-->
+
+        <!-- 로그인 버튼 -->
+        <li class="nav-item">
+          <a class="nav-link" href="#" role="button" sec:authorize="!isAuthenticated()" th:href="@{/oauth2/authorization/kakao}">
+            <i class="fas fa-sign-in-alt"></i>
+          </a>
+        </li>
+
+        <!-- 로그아웃 버튼 -->
+        <li class="nav-item">
+          <a class="nav-link" href="#" role="button" sec:authorize="isAuthenticated()" th:href="@{/logout}">
+            <i class="fas fa-sign-out-alt"></i>
+          </a>
+        </li>
 
         <!--/* 전체 화면 토글 버튼 */-->
         <li class="nav-item">
