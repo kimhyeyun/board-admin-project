@@ -1,10 +1,7 @@
 package dev.be.boardadminproject.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import dev.be.boardadminproject.dto.response.ArticleClientResponse;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
