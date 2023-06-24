@@ -83,7 +83,7 @@ class ArticleManagementServiceTest {
                     .hasFieldOrPropertyWithValue("id", expectedArticle.id())
                     .hasFieldOrPropertyWithValue("title", expectedArticle.title())
                     .hasFieldOrPropertyWithValue("content", expectedArticle.content())
-                    .hasFieldOrPropertyWithValue("member.nickname", expectedArticle.member().getNickname());
+                    .hasFieldOrPropertyWithValue("member.nickname", expectedArticle.member().nickname());
 
             server.verify();
         }
@@ -106,7 +106,7 @@ class ArticleManagementServiceTest {
                     .hasFieldOrPropertyWithValue("id", expectedArticle.id())
                     .hasFieldOrPropertyWithValue("title", expectedArticle.title())
                     .hasFieldOrPropertyWithValue("content", expectedArticle.content())
-                    .hasFieldOrPropertyWithValue("member.nickname", expectedArticle.member().getNickname());
+                    .hasFieldOrPropertyWithValue("member.nickname", expectedArticle.member().nickname());
 
             server.verify();
 
@@ -144,7 +144,6 @@ class ArticleManagementServiceTest {
         private MemberDto createMemberDto() {
             return MemberDto.builder()
                     .memberId("yunTest")
-                    .password("pw")
                     .roleTypes(Set.of(RoleType.ADMIN))
                     .email("yun-test@mail.com")
                     .nickname("yun-test")

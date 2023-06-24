@@ -22,7 +22,7 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Member extends BaseEntity{
+public class AdminAccount extends BaseEntity{
 
     @Id
     @Column(length = 50)
@@ -54,8 +54,8 @@ public class Member extends BaseEntity{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Member member)) return false;
-        return this.getMemberId() != null && this.getMemberId().equals(member.getMemberId());
+        if (!(o instanceof AdminAccount adminAccount)) return false;
+        return this.getMemberId() != null && this.getMemberId().equals(adminAccount.getMemberId());
     }
 
     @Override

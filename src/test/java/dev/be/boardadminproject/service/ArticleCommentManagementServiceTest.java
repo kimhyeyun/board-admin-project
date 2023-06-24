@@ -82,7 +82,7 @@ class ArticleCommentManagementServiceTest {
             assertThat(result).first()
                     .hasFieldOrPropertyWithValue("id", expectedComment.id())
                     .hasFieldOrPropertyWithValue("content", expectedComment.content())
-                    .hasFieldOrPropertyWithValue("member.nickname", expectedComment.member().getNickname());
+                    .hasFieldOrPropertyWithValue("member.nickname", expectedComment.member().nickname());
 
             server.verify();
         }
@@ -104,7 +104,7 @@ class ArticleCommentManagementServiceTest {
             assertThat(result)
                     .hasFieldOrPropertyWithValue("id", expectedComment.id())
                     .hasFieldOrPropertyWithValue("content", expectedComment.content())
-                    .hasFieldOrPropertyWithValue("member.nickname", expectedComment.member().getNickname());
+                    .hasFieldOrPropertyWithValue("member.nickname", expectedComment.member().nickname());
 
             server.verify();
         }
@@ -140,7 +140,6 @@ class ArticleCommentManagementServiceTest {
         private MemberDto createMemberDto() {
             return MemberDto.builder()
                     .memberId("yunTest")
-                    .password("pw")
                     .roleTypes(Set.of(RoleType.ADMIN))
                     .email("yun-test@mail.com")
                     .nickname("yun-test")

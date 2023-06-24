@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @DisplayName("View 컨트롤러 - 회원 관리")
 @Import(SecurityConfig.class)
 @WebMvcTest(MemberManagementController.class)
-class MemberManagementControllerTest {
+class AdminAccountManagementControllerTest {
 
     @Autowired MockMvc mvc;
 

@@ -61,7 +61,7 @@ class ArticleCommentManagementControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(articleCommentId))
                 .andExpect(jsonPath("$.content").value(articleCommentDto.content()))
-                .andExpect(jsonPath("$.member.nickname").value(articleCommentDto.member().getNickname()));
+                .andExpect(jsonPath("$.member.nickname").value(articleCommentDto.member().nickname()));
 
         then(articleCommentManagementService).should().getArticleComment(articleCommentId);
     }
@@ -101,7 +101,6 @@ class ArticleCommentManagementControllerTest {
     private MemberDto createMemberDto() {
         return MemberDto.builder()
                 .memberId("yunTest")
-                .password("pw")
                 .roleTypes(Set.of(RoleType.ADMIN))
                 .email("yun-test@mail.com")
                 .nickname("yun-test")

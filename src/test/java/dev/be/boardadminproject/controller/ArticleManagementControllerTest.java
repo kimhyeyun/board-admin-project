@@ -60,7 +60,7 @@ class ArticleManagementControllerTest {
                 .andExpect(jsonPath("$.id").value(articleId))
                 .andExpect(jsonPath("$.title").value(articleDto.title()))
                 .andExpect(jsonPath("$.content").value(articleDto.content()))
-                .andExpect(jsonPath("$.member.nickname").value(articleDto.member().getNickname()));
+                .andExpect(jsonPath("$.member.nickname").value(articleDto.member().nickname()));
 
         then(articleManagementService).should().getArticle(articleId);
     }
@@ -100,7 +100,6 @@ class ArticleManagementControllerTest {
     private MemberDto createMemberDto() {
         return MemberDto.builder()
                 .memberId("yunTest")
-                .password("pw")
                 .roleTypes(Set.of(RoleType.ADMIN))
                 .email("yun-test@mail.com")
                 .nickname("yun-test")
