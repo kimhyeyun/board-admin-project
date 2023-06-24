@@ -50,7 +50,7 @@ class ArticleManagementControllerTest {
     @Test
     void givenArticleId_whenRequestingArticle_thenReturnsArticle() throws Exception {
         Long articleId = 1L;
-        ArticleDto articleDto = createArticleDto("title", "content");
+        ArticleDto.Dto articleDto = createArticleDto("title", "content");
 
         given(articleManagementService.getArticle(articleId)).willReturn(articleDto);
 
@@ -83,8 +83,8 @@ class ArticleManagementControllerTest {
         then(articleManagementService).should().deleteArticle(articleId);
     }
 
-    private ArticleDto createArticleDto(String title, String content) {
-        return ArticleDto.builder()
+    private ArticleDto.Dto createArticleDto(String title, String content) {
+        return ArticleDto.Dto.builder()
                 .id(1L)
                 .member(createMemberDto())
                 .title(title)

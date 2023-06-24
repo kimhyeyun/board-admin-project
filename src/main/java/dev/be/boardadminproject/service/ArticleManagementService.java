@@ -10,11 +10,11 @@ import java.util.List;
 @Service
 public class ArticleManagementService {
 
-    public List<ArticleDto> getArticles() {
+    public List<ArticleDto.Dto> getArticles() {
         return List.of();
     }
 
-    public ArticleDto getArticle(Long articleId) {
+    public ArticleDto.Dto getArticle(Long articleId) {
         return null;
     }
 

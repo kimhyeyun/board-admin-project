@@ -6,7 +6,6 @@ import dev.be.boardadminproject.domain.constant.RoleType;
 import dev.be.boardadminproject.dto.ArticleDto;
 import dev.be.boardadminproject.dto.MemberDto;
 import dev.be.boardadminproject.dto.properties.ProjectProperties;
-import dev.be.boardadminproject.dto.response.ArticleClientResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -45,7 +44,7 @@ class ArticleManagementServiceTest {
         @DisplayName("게시글 ID와 함께 게시글 API를 호출하면, 게시글을 가져온다.")
         @Test
         void given_when_then() {
-            List<ArticleDto> result = sut.getArticles();
+            List<ArticleDto.Dto> result = sut.getArticles();
 
             System.out.println(result.stream().findFirst());
             assertThat(result).isNotNull();
@@ -69,8 +68,8 @@ class ArticleManagementServiceTest {
         @DisplayName("게시글 목록 API를 호출하면, 게시글들을 가져온다.")
         @Test
         void givenNothing_whenCallingArticlesApi_thenReturnsArticleList() throws JsonProcessingException {
-            ArticleDto expectedArticle = createArticleDto("제목", "글");
-            ArticleClientResponse expectedResponse = ArticleClientResponse.of(List.of(expectedArticle));
+            ArticleDto.Dto expectedArticle = createArticleDto("제목", "글");
+            ArticleDto.ClientResponse expectedResponse = ArticleDto.ClientResponse.of(List.of(expectedArticle));
 
             server.expect(requestTo(properties.board().url() + "/api/articles?size=10000"))
                     .andRespond(MockRestResponseCreators.withSuccess(
@@ -78,7 +77,7 @@ class ArticleManagementServiceTest {
                             MediaType.APPLICATION_JSON
                     ));
 
-            List<ArticleDto> result = sut.getArticles();
+            List<ArticleDto.Dto> result = sut.getArticles();
 
             assertThat(result).first()
                     .hasFieldOrPropertyWithValue("id", expectedArticle.id())
@@ -93,7 +92,7 @@ class ArticleManagementServiceTest {
         @Test
         void givenNothing_whenCallingArticleAPI_thenReturnsArticle() throws JsonProcessingException {
             Long articleId = 1L;
-            ArticleDto expectedArticle = createArticleDto("게시글", "글");
+            ArticleDto.Dto expectedArticle = createArticleDto("게시글", "글");
 
             server.expect(requestTo(properties.board().url() + "/api/aritlces/"+articleId) )
                     .andRespond(withSuccess(
@@ -101,7 +100,7 @@ class ArticleManagementServiceTest {
                             MediaType.APPLICATION_JSON
                     ));
 
-            ArticleDto result = sut.getArticle(articleId);
+            ArticleDto.Dto result = sut.getArticle(articleId);
 
             assertThat(result)
                     .hasFieldOrPropertyWithValue("id", expectedArticle.id())
@@ -128,8 +127,8 @@ class ArticleManagementServiceTest {
             server.verify();
         }
 
-        private ArticleDto createArticleDto(String title, String content) {
-            return ArticleDto.builder()
+        private ArticleDto.Dto createArticleDto(String title, String content) {
+            return ArticleDto.Dto.builder()
                     .id(1L)
                     .member(createMemberDto())
                     .title(title)
