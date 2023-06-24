@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping("/admin/members")
 @Controller
-public class AdminMemberController {
+public class AdminAccountController {
 
     @GetMapping
     public String members(
