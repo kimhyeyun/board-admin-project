@@ -44,7 +44,7 @@ public record BoardAdminPrincipal(
         );
     }
 
-    public static BoardAdminPrincipal from(AdminAccountDto dto) {
+    public static BoardAdminPrincipal from(AdminAccountDto.Dto dto) {
         return BoardAdminPrincipal.of(
                 dto.memberId(),
                 dto.password(),
@@ -55,8 +55,8 @@ public record BoardAdminPrincipal(
         );
     }
 
-    public AdminAccountDto toDto() {
-        return AdminAccountDto.builder()
+    public AdminAccountDto.Dto toDto() {
+        return AdminAccountDto.Dto.builder()
                 .memberId(username)
                 .password(password)
                 .roleTypes(authorities.stream()
