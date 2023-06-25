@@ -13,7 +13,7 @@ public class ArticleDto implements Serializable {
     @Builder
     public record Dto(
             Long id,
-            MemberDto member,
+            MemberDto.Dto member,
             String title,
             String content,
             Set<String> hashtags,

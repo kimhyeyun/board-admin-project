@@ -141,10 +141,9 @@ class ArticleManagementServiceTest {
                     .build();
         }
 
-        private MemberDto createMemberDto() {
-            return MemberDto.builder()
+        private MemberDto.Dto createMemberDto() {
+            return MemberDto.Dto.builder()
                     .memberId("yunTest")
-                    .roleTypes(Set.of(RoleType.ADMIN))
                     .email("yun-test@mail.com")
                     .nickname("yun-test")
                     .memo("test memo")

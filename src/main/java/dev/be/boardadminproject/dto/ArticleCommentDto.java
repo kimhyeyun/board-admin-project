@@ -13,7 +13,7 @@ public class ArticleCommentDto implements Serializable {
     public record Dto(
             Long id,
             Long articleId,
-            MemberDto member,
+            MemberDto.Dto member,
             Long parentCommentId,
             String content,
             LocalDateTime createdAt,

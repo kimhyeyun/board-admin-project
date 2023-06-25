@@ -2,7 +2,6 @@ package dev.be.boardadminproject.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.be.boardadminproject.domain.constant.RoleType;
 import dev.be.boardadminproject.dto.ArticleCommentDto;
 import dev.be.boardadminproject.dto.MemberDto;
 import dev.be.boardadminproject.dto.properties.ProjectProperties;
@@ -22,10 +21,8 @@ import org.springframework.test.web.client.response.MockRestResponseCreators;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
@@ -137,10 +134,9 @@ class ArticleCommentManagementServiceTest {
                     .build();
         }
 
-        private MemberDto createMemberDto() {
-            return MemberDto.builder()
+        private MemberDto.Dto createMemberDto() {
+            return MemberDto.Dto.builder()
                     .memberId("yunTest")
-                    .roleTypes(Set.of(RoleType.ADMIN))
                     .email("yun-test@mail.com")
                     .nickname("yun-test")
                     .memo("test memo")

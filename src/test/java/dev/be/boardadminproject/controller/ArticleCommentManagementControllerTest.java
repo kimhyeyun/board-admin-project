@@ -1,7 +1,6 @@
 package dev.be.boardadminproject.controller;
 
 import dev.be.boardadminproject.config.SecurityConfig;
-import dev.be.boardadminproject.domain.constant.RoleType;
 import dev.be.boardadminproject.dto.ArticleCommentDto;
 import dev.be.boardadminproject.dto.MemberDto;
 import dev.be.boardadminproject.service.ArticleCommentManagementService;
@@ -16,11 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
-import static org.mockito.Mockito.mock;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -98,10 +94,9 @@ class ArticleCommentManagementControllerTest {
                 .build();
     }
 
-    private MemberDto createMemberDto() {
-        return MemberDto.builder()
+    private MemberDto.Dto createMemberDto() {
+        return MemberDto.Dto.builder()
                 .memberId("yunTest")
-                .roleTypes(Set.of(RoleType.ADMIN))
                 .email("yun-test@mail.com")
                 .nickname("yun-test")
                 .memo("test memo")
