@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -29,20 +30,22 @@ class MemberManagementControllerTest {
     @MockBean MemberManagementService memberManagementService;
 
 
+    @WithMockUser(username = "tester", roles = "USER")
     @DisplayName("[view][GET] 어드민 회원 페이지 - 정상 호출")
     @Test
     void givenNothing_whenRequestingAdminMembersView_thenReturnsAdminMembersView() throws Exception {
         given(memberManagementService.getMembers()).willReturn(List.of());
 
-        mvc.perform(get("/admin/members"))
+        mvc.perform(get("/management/members"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-                .andExpect(view().name("admin/members"))
+                .andExpect(view().name("management/members"))
                 .andExpect(model().attribute("members", List.of()));
 
         then(memberManagementService).should().getMembers();
     }
 
+    @WithMockUser(username = "tester", roles = "USER")
     @DisplayName("[data][GET] 회원 1개 - 정상 호출")
     @Test
     void givenMemberId_whenRequestingMember_thenReturnsMember() throws Exception {
@@ -51,7 +54,7 @@ class MemberManagementControllerTest {
 
         given(memberManagementService.getMember(memberId)).willReturn(memberDto);
 
-        mvc.perform(get("/management/member/" + memberId))
+        mvc.perform(get("/management/members/" + memberId))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.memberId").value(memberId))
@@ -60,6 +63,7 @@ class MemberManagementControllerTest {
         then(memberManagementService).should().getMember(memberId);
     }
 
+    @WithMockUser(username = "tester", roles = "MANAGER")
     @DisplayName("[view][POST] 회원 삭제 - 정상 호출")
     @Test
     void givenMemberId_whenRequestingDeletion_thenRedirectsToMemberManagementView() throws Exception {

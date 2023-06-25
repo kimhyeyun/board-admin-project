@@ -52,4 +52,28 @@ public class MemberDto implements Serializable {
         ){}
     }
 
+    @Builder
+    public record Response(
+            String memberId,
+            String email,
+            String nickname,
+            String memo,
+            LocalDateTime createdAt,
+            String createdBy
+    ) {
+
+        public static Response from(Dto dto) {
+            return Response.builder()
+                    .memberId(dto.memberId)
+                    .email(dto.email)
+                    .nickname(dto.nickname)
+                    .memo(dto.memo)
+                    .createdAt(dto.createdAt)
+                    .createdBy(dto.createdBy)
+                    .build();
+        }
+
+    }
+
+
 }
