@@ -16,15 +16,15 @@ public class AdminAccountService {
 
     private final AdminAccountRepository adminAccountRepository;
 
-    public Optional<AdminAccountDto> searchMember(String username) {
+    public Optional<AdminAccountDto.Dto> searchMember(String username) {
         return Optional.empty();
     }
 
-    public AdminAccountDto saveMember(String username, String password, Set<RoleType> roleTypes, String email, String nickname, String memo) {
+    public AdminAccountDto.Dto saveMember(String username, String password, Set<RoleType> roleTypes, String email, String nickname, String memo) {
         return null;
     }
 
-    public List<AdminAccountDto> members() {
+    public List<AdminAccountDto.Dto> members() {
         return List.of();
     }
 

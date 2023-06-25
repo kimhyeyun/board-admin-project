@@ -31,8 +31,8 @@ public class TestSecurityConfig {
                 .willReturn(createAdminAccountDto());
     }
 
-    private AdminAccountDto createAdminAccountDto() {
-        return AdminAccountDto.builder()
+    private AdminAccountDto.Dto createAdminAccountDto() {
+        return AdminAccountDto.Dto.builder()
                 .memberId("yunTest")
                 .password("pw")
                 .roleTypes(Set.of(RoleType.USER))

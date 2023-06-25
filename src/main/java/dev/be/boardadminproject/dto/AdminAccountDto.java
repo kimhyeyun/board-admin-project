@@ -76,7 +76,7 @@ public class AdminAccountDto implements Serializable {
                     .createdBy(dto.createdBy)
                     .build();
         }
-        
+
     }
 
 }
