@@ -1,6 +1,6 @@
 package dev.be.boardadminproject.controller;
 
-import dev.be.boardadminproject.config.SecurityConfig;
+import dev.be.boardadminproject.config.TestSecurityConfig;
 import dev.be.boardadminproject.dto.MemberDto;
 import dev.be.boardadminproject.service.MemberManagementService;
 import org.junit.jupiter.api.DisplayName;
@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,9 +21,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("컨트롤러 - 어드민 회원")
-@Import(SecurityConfig.class)
+@Import(TestSecurityConfig.class)
 @WebMvcTest(MemberManagementController.class)
-class MemberControllerTest {
+class MemberManagementControllerTest {
 
     @Autowired MockMvc mvc;
     @MockBean MemberManagementService memberManagementService;

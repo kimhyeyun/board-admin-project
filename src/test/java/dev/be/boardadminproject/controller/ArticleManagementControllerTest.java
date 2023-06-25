@@ -1,6 +1,7 @@
 package dev.be.boardadminproject.controller;
 
 import dev.be.boardadminproject.config.SecurityConfig;
+import dev.be.boardadminproject.config.TestSecurityConfig;
 import dev.be.boardadminproject.dto.ArticleDto;
 import dev.be.boardadminproject.dto.MemberDto;
 import dev.be.boardadminproject.service.ArticleManagementService;
@@ -23,7 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("컨트롤러 - 게시글 관리")
-@Import(SecurityConfig.class)
+@Import(TestSecurityConfig.class)
 @WebMvcTest(ArticleManagementController.class)
 class ArticleManagementControllerTest {
 
