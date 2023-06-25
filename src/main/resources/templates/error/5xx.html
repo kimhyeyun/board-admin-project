@@ -32,12 +32,12 @@
       <!-- Main Content-->
       <section class="content">
         <div class="error-page">
-          <h2 class="headline text-warning" th:text="${#response.status}">5 XX</h2>
+          <h2 class="headline text-danger" th:text="${response}">5XX</h2>
 
           <div class="error-content">
-            <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops!</h3>
+            <h3><i class="fas fa-exclamation-triangle text-danger"></i> Oops!</h3>
 
-            <p><span th:text="'잘못된 호출입니다.'">Something went wrong.</span></p>
+            <p><span th:text="'알 수 없는 에러가 발생했습니다!'">Something went wrong.</span></p>
           </div>
           <!-- /.error-content -->
         </div>
