@@ -33,6 +33,7 @@ public class ArticleManagementService {
 
     public ArticleDto.Dto getArticle(Long articleId) {
         URI uri = UriComponentsBuilder.fromHttpUrl(properties.board().url() + "/api/articles/" + articleId)
+                .queryParam("projection", "withMember")
                 .build()
                 .toUri();
 

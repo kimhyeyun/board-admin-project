@@ -96,7 +96,7 @@ class ArticleManagementServiceTest {
             Long articleId = 1L;
             ArticleDto.Dto expectedArticle = createArticleDto("게시글", "글");
 
-            server.expect(requestTo(properties.board().url() + "/api/articles/"+articleId) )
+            server.expect(requestTo(properties.board().url() + "/api/articles/" + articleId + "?projection=withMember"))
                     .andRespond(withSuccess(
                             mapper.writeValueAsString(expectedArticle),
                             MediaType.APPLICATION_JSON
