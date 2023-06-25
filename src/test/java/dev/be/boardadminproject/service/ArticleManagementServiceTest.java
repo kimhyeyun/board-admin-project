@@ -6,6 +6,7 @@ import dev.be.boardadminproject.domain.constant.RoleType;
 import dev.be.boardadminproject.dto.ArticleDto;
 import dev.be.boardadminproject.dto.MemberDto;
 import dev.be.boardadminproject.dto.properties.ProjectProperties;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 @DisplayName("비즈니스 로직 - 게시글 관리")
 class ArticleManagementServiceTest {
 
+    @Disabled("실제 API 호출 결과 관찰용이므로 평상시엔 비활성화")
     @DisplayName("실제 API 호출 테스트")
     @SpringBootTest
     @Nested
@@ -94,7 +96,7 @@ class ArticleManagementServiceTest {
             Long articleId = 1L;
             ArticleDto.Dto expectedArticle = createArticleDto("게시글", "글");
 
-            server.expect(requestTo(properties.board().url() + "/api/aritlces/"+articleId) )
+            server.expect(requestTo(properties.board().url() + "/api/articles/"+articleId) )
                     .andRespond(withSuccess(
                             mapper.writeValueAsString(expectedArticle),
                             MediaType.APPLICATION_JSON

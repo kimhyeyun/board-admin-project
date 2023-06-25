@@ -1,5 +1,6 @@
 package dev.be.boardadminproject.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 
@@ -56,5 +57,37 @@ public class ArticleDto implements Serializable {
                 int number
         ){}
     }
+
+    @Builder
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public record Response(
+            Long id,
+            MemberDto.Dto member,
+            String title,
+            String content,
+            LocalDateTime createdAt
+    ) {
+
+        public static Response withContent(Dto dto) {
+            return Response.builder()
+                    .id(dto.id)
+                    .member(dto.member)
+                    .title(dto.title)
+                    .content(dto.content)
+                    .createdAt(dto.createdAt)
+                    .build();
+        }
+
+        public static Response withoutContent(Dto dto) {
+            return Response.builder()
+                    .id(dto.id)
+                    .member(dto.member)
+                    .title(dto.title)
+                    .content(null)
+                    .createdAt(dto.createdAt)
+                    .build();
+        }
+    }
+
 }
 

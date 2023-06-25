@@ -1,5 +1,6 @@
 package dev.be.boardadminproject.controller;
 
+import dev.be.boardadminproject.dto.ArticleDto;
 import dev.be.boardadminproject.service.ArticleManagementService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -8,8 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/management/articles")
 @Controller
@@ -25,8 +25,21 @@ public class ArticleManagementController {
             HttpServletRequest request
     ) {
         model.addAttribute("request", request.getRequestURI());
-        model.addAttribute("articles", articleManagementService.getArticles());
+        model.addAttribute("articles", articleManagementService.getArticles().stream().map(ArticleDto.Response::withoutContent).toList());
 
         return "management/articles";
+    }
+
+    @ResponseBody
+    @GetMapping("/{articleId}")
+    public ArticleDto.Response article(@PathVariable Long articleId) {
+        return ArticleDto.Response.withContent(articleManagementService.getArticle(articleId));
+    }
+
+    @PostMapping("/{articleId}")
+    public String deleteArticle(@PathVariable Long articleId) {
+        articleManagementService.deleteArticle(articleId);
+
+        return "redirect:/management/articles";
     }
 }

@@ -19,14 +19,19 @@
         <main th:replace="~{layouts/layout-main-table.html :: common_main_table('게시글 관리', (~{::#main-table} ?: ~{}))}">
             <table id="main-table" class="table table-bordered table-striped">
                 <thead>
-                    <tr><td></td></tr>
-                </thead>
-                <tbody>
                     <tr>
-                        <td>1</td>
-                        <td><a data-toggle="modal" data-target="#layout-modal"></a></td>
-                        <td>Yun</td>
-                        <td><time datetime="2022-01-01T00:00:00">2022-01-01 00:00:00</time></td>
+                        <th th:text="'ID'"></th>
+                        <th th:text="'제목'"></th>
+                        <th th:text="'작성자'"></th>
+                        <th th:text="'작성일시'"></th>
+                    </tr>
+                </thead>
+                <tbody th:remove="all-but-first">
+                    <tr th:each="article : ${articles}">
+                        <td th:text="${article.id()}">1</td>
+                        <td><a data-toggle="modal" data-target="#layout-modal" th:text="${article.title()}" th:href="@{#}" th:data-id="${article.id()}"></a></td>
+                        <td th:text="${article.member().nickname()}">Yun</td>
+                        <td><time th:datetime="${article.createdAt()}" th:text="${#temporals.format(article.createdAt(), 'yyyy-MM-dd HH:mm:ss')}">2022-01-01 00:00:00</time></td>
                     </tr>
                 </tbody>
                 <tfoot>
