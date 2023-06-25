@@ -16,7 +16,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 @DisplayName("비즈니스 로직 - 어드민 회원")
@@ -29,12 +28,12 @@ class AdminAccountServiceTest {
 
     @DisplayName("존재하는 회원 ID를 검색하면, 회원 데이터를 Optional로 반환한다.")
     @Test
-    void givenExistenMemberId_whenSearching_thenReturnsOptionalMemberData() {
+    void givenExistedMemberId_whenSearching_thenReturnsOptionalMemberData() {
         String username = "yun";
 
         given(adminAccountRepository.findById(username)).willReturn(Optional.of(createAdminAccount(username)));
 
-        Optional<AdminAccountDto> result = sut.searchMember(username);
+        Optional<AdminAccountDto.Dto> result = sut.searchMember(username);
 
         assertThat(result).isPresent();
 
@@ -48,7 +47,7 @@ class AdminAccountServiceTest {
 
         given(adminAccountRepository.findById(username)).willReturn(Optional.empty());
 
-        Optional<AdminAccountDto> result = sut.searchMember(username);
+        Optional<AdminAccountDto.Dto> result = sut.searchMember(username);
 
         assertThat(result).isEmpty();
         then(adminAccountRepository).should().findById(username);
@@ -61,7 +60,7 @@ class AdminAccountServiceTest {
 
         given(adminAccountRepository.save(adminAccount)).willReturn(adminAccount);
 
-        AdminAccountDto result = sut.saveMember(
+        AdminAccountDto.Dto result = sut.saveMember(
                 adminAccount.getMemberId(),
                 adminAccount.getPassword(),
                 adminAccount.getRoleTypes(),
@@ -88,7 +87,7 @@ class AdminAccountServiceTest {
     void givenNothing_whenSelectingAdminAccounts_thenReturnsAllAdminAccounts() {
         given(adminAccountRepository.findAll()).willReturn(List.of());
 
-        List<AdminAccountDto> result = sut.members();
+        List<AdminAccountDto.Dto> result = sut.members();
 
         assertThat(result).hasSize(0);
         then(adminAccountRepository).should().findAll();

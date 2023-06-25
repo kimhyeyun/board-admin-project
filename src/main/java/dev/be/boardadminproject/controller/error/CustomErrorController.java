@@ -16,8 +16,6 @@ public class CustomErrorController implements ErrorController {
     public String handleError(HttpServletRequest request, HttpServletResponse response, Model model) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
-        System.out.println(status.toString());
-
         if (status != null) {
             int statusCode = Integer.valueOf(status.toString());
 
@@ -29,14 +27,12 @@ public class CustomErrorController implements ErrorController {
                     statusCode == HttpStatus.BAD_REQUEST.value() ||
                     statusCode == HttpStatus.UNAUTHORIZED.value()
             ) {
-
                 return "error/4xx";
             }
 
             if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value() ||
                     statusCode == HttpStatus.SERVICE_UNAVAILABLE.value()
             ) {
-                
                 return "error/5xx";
             }
         }

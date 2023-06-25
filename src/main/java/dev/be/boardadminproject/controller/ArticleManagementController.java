@@ -20,7 +20,6 @@ public class ArticleManagementController {
 
     @GetMapping
     public String articles(
-            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
             Model model,
             HttpServletRequest request
     ) {
