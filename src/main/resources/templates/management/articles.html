@@ -26,16 +26,21 @@
                         <th th:text="'작성일시'"></th>
                     </tr>
                 </thead>
-                <tbody th:remove="all-but-first">
+                <tbody th:remove="all-but-first" >
                     <tr th:each="article : ${articles}">
-                        <td th:text="${article.id()}">1</td>
-                        <td><a data-toggle="modal" data-target="#layout-modal" th:text="${article.title()}" th:href="@{#}" th:data-id="${article.id()}"></a></td>
-                        <td th:text="${article.member().nickname()}">Yun</td>
-                        <td><time th:datetime="${article.createdAt()}" th:text="${#temporals.format(article.createdAt(), 'yyyy-MM-dd HH:mm:ss')}">2022-01-01 00:00:00</time></td>
+                        <td th:text="${article.id}">1</td>
+                        <td><a data-toggle="modal" data-target="#layout-modal" th:text="${article.title}" th:href="@{#}" th:data-id="${article.id}"></a></td>
+                        <td th:text="${article.member.nickname}">Yun</td>
+                        <td><time th:datetime="${article.createdAt}" th:text="${#temporals.format(article.createdAt, 'yyyy-MM-dd HH:mm:ss')}">2022-01-01 00:00:00</time></td>
                     </tr>
                 </tbody>
                 <tfoot>
-                    <tr><th></th></tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>작성일시</th>
+                    </tr>
                 </tfoot>
             </table>
         </main>
@@ -50,6 +55,7 @@
 
     <!-- Required Scripts-->
     <script th:replace="~{layouts/layout-script.html :: script}"><!-- 공통 스크립트 삽입부 --></script>
+
     <!--/* 페이지 전용 스크립트 */-->
     <script src="/js/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="/js/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -63,6 +69,7 @@
     <script src="/js/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="/js/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="/js/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
     <script>
         $(function () {
             $("#main-table").DataTable({
@@ -85,7 +92,7 @@
                         $('.modal-footer form').attr('action', `/management/articles/${id}`);
                     })
                     .catch(error => {
-                        console.error('게시글 로딩 실패: ' + error);
+                        console.error('게시글 로딩 실패: ', error);
                     });
             });
         });
