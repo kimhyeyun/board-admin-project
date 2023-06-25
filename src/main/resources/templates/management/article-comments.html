@@ -18,10 +18,18 @@
         <main th:replace="~{layouts/layout-main-table.html :: common_main_table('댓글 관리', (~{::#main-table} ?: ~{}))}">
             <table id="main-table" class="table table-bordered table-striped">
                 <thead>
-                    <tr></tr>
+                    <th th:text="'ID'"></th>
+                    <th th:text="'댓글 내용'"></th>
+                    <th th:text="'작성자'"></th>
+                    <th th:text="'작성일시'"></th>
                 </thead>
-                <tbody>
-                    <tr></tr>
+                <tbody th:remove="all-but-first">
+                    <tr th:each="comment : ${comments}">
+                        <td th:text="${comment.id()}"></td>
+                        <td><a data-toggle="modal" data-target="#layout-modal" th:href="@{#}" th:text="${comment.content()}" th:data-id="${comment.id()}"></a></td>
+                        <td th:text="${comment.member().nickname()}"></td>
+                        <td><time th:datetime="${comment.createdAt()}" th:text="${#temporals.format(comment.createdAt(), 'yyyy-MM-dd HH:mm:ss')}"></time></td>
+                    </tr>
                 </tbody>
                 <tfoot>
                     <tr></tr>
@@ -29,6 +37,9 @@
             </table>
         </main>
         <!-- /.content -->
+
+        <div class="modal fade" id="layout-modal" th:replace="~{layouts/layout-main-table-modal.html :: .modal}"></div>
+        <!-- /.modal -->
 
         <aside th:replace="~{layouts/layout-right-aside.html :: aside}">오른쪽 사이드바 삽입부</aside>
         <footer th:replace="~{layouts/layout-footer.html :: footer}">푸터 삽입부</footer>
@@ -55,6 +66,24 @@
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
                 "pageLength": 10
             }).buttons().container().appendTo('#main-table_wrapper .col-md-6:eq(0)');
+        });
+    </script>
+    <script>
+        $(document).ready(() => {
+            $('#layout-modal').on('show.bs.modal', (event) => {
+                const id = $(event.relatedTarget).data('id');
+
+                fetch(`/management/article-comments/${id}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        $('.modal-title').text('댓글 내용');
+                        $('.modal-body pre').text(data.content);
+                        $('.modal-footer form').attr('action', `/management/article-comments/${id}`);
+                    })
+                    .catch(error => {
+                        console.error('댓글 로딩 실패: ', error);
+                    });
+            });
         });
     </script>
 </body>

@@ -1,5 +1,6 @@
 package dev.be.boardadminproject.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 
@@ -41,6 +42,10 @@ public class ArticleCommentDto implements Serializable {
             );
         }
 
+        public List<Dto> articleComments() {
+            return this.embedded().articleComments();
+        }
+
         public record Embedded(List<Dto> articleComments) { }
 
         public record Page(
@@ -51,5 +56,25 @@ public class ArticleCommentDto implements Serializable {
         ) { }
 
     }
+
+    @Builder
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public record Response(
+            Long id,
+            MemberDto.Dto member,
+            String content,
+            LocalDateTime createdAt
+    ) {
+
+        public static Response of(Dto dto) {
+            return Response.builder()
+                    .id(dto.id)
+                    .member(dto.member)
+                    .content(dto.content)
+                    .createdAt(dto.createdAt)
+                    .build();
+        }
+    }
+
 
 }
