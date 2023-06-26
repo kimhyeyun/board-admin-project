@@ -1,5 +1,6 @@
 package dev.be.boardadminproject.controller;
 
+import dev.be.boardadminproject.config.GlobalControllerConfig;
 import dev.be.boardadminproject.config.SecurityConfig;
 import dev.be.boardadminproject.config.TestSecurityConfig;
 import dev.be.boardadminproject.domain.constant.RoleType;
@@ -28,7 +29,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("View 컨트롤러 - 회원 관리")
-@Import(SecurityConfig.class)
+@Import({SecurityConfig.class, GlobalControllerConfig.class})
 @WebMvcTest(AdminAccountController.class)
 class AdminAccountControllerTest {
 
