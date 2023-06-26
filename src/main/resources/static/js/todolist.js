@@ -20,6 +20,7 @@ $(document).ready(() => {
         `;
 
         $('ul.todo-list').append(todoElement);
+        $('#todo-input').val("");
     });
 
     $('#todo-input').keyup((event) => {
