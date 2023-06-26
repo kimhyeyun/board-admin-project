@@ -34,6 +34,8 @@ public class AdminAccountService {
                         .email(email)
                         .nickname(nickname)
                         .memo(memo)
+                        .createdBy(username)
+                        .modifiedBy(username)
                         .build()
                 )
         );
