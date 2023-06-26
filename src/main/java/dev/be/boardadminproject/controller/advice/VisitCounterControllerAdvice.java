@@ -1,12 +1,13 @@
-package dev.be.boardadminproject.controller;
+package dev.be.boardadminproject.controller.advice;
 
 import dev.be.boardadminproject.service.VisitCounterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 @RequiredArgsConstructor
-@Controller
+@ControllerAdvice
 public class VisitCounterControllerAdvice {
 
     private final VisitCounterService visitCounterService;
