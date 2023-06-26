@@ -76,7 +76,9 @@ public class SecurityConfig {
             KakaoOAuth2Response kakaoOAuth2Response = KakaoOAuth2Response.from(oAuth2User.getAttributes());
             String registrationId = userRequest.getClientRegistration().getRegistrationId();
             String providerId = String.valueOf(kakaoOAuth2Response.id());
-            String username = registrationId + "_" + providerId;
+//            String username = registrationId + "_" + providerId;
+            String username = kakaoOAuth2Response.nickname();
+
             String dummyPassword = passwordEncoder.encode("{bcrypt}" + UUID.randomUUID());
             Set<RoleType> roleTypes = Set.of(RoleType.USER);
 

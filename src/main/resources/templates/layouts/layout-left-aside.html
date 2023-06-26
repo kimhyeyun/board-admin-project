@@ -17,7 +17,7 @@
     <!--/* Sidebar user panel (optional) */-->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="info">
-        <a th:href="@{#}" class="d-block" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">Yun</a>
+        <a th:href="@{#}" class="d-block" sec:authorize="isAuthenticated()" th:text="${#authentication.name}">Yun</a>
       </div>
     </div>
 
