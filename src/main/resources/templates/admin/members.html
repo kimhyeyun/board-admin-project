@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <title>어드민 회원 페이지</title>
 
-    <link rel="stylesheet" href="/js/plugins/jsgrid/jsgrid.min.css">
-    <link rel="stylesheet" href="/js/plugins/jsgrid/jsgrid-theme.min.css">
+
+    <link rel="stylesheet" href="/js/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/js/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="/js/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+
 </head>
 <body class="hold-transition sidebar-mini">
 
@@ -15,7 +18,44 @@
 
         <!-- Main content-->
         <main th:replace="~{layouts/layout-main-table.html :: common_main_table('어드민 회원', (~{::#main-table} ?: ~{}))}">
-            <div id="jsgrid-admin-members"></div>
+            <table id="main-table" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th th:text="'유저 ID'">유저 ID</th>
+                        <th th:text="닉네임">닉네임</th>
+                        <th th:text="이메일">이메일</th>
+                        <th th:text="메모">메모</th>
+                        <th th:text="권한">권한</th>
+                        <th th:text="작성자">작성자</th>
+                        <th th:text="작성일시">작성일시</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody th:remove="all-but-first">
+                <tr th:each="admin_account : ${admin_accounts}">
+                    <td><a data-toggle="modal" data-target="#layout-modal" th:text="${admin_account.memberId()}" th:href="@{#}" th:data-id="${admin_account.memberId()}"></a></td>
+                    <td th:text="${admin_account.nickname()}"></td>
+                    <td th:text="${admin_account.email()}"></td>
+                    <td th:text="${admin_account.memo()}"></td>
+                    <td th:text="${admin_account.roleTypes()}"></td>
+                    <td th:text="${admin_account.createdBy()}"></td>
+                    <td><time th:datetime="${admin_account.createdAt()}" th:text="${#temporals.format(admin_account.createdAt(), 'yyyy-MM-dd HH:mm:ss')}"></time></td>
+                    <td><i class="fas fa-trash" th:onclick="deleteAdmin([[${admin_account.memberId}]])"></i></td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>유저 ID</th>
+                    <th>닉네임</th>
+                    <th>이메일</th>
+                    <th>메모</th>
+                    <th>권한</th>
+                    <th>작성자</th>
+                    <th>작성일시</th>
+                    <th></th>
+                </tr>
+                </tfoot>
+            </table>
         </main>
         <!-- /.content -->
 
@@ -27,42 +67,38 @@
     <script th:replace="~{layouts/layout-script.html :: script}"></script>
 
     <!-- 페이지 전용 스크립트 -->
-    <script src="/static/js/plugins/jsgrid/jsgrid.min.js"></script>
+    <script src="/js/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/js/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/js/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/js/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="/js/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="/js/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="/js/plugins/jszip/jszip.min.js"></script>
+    <script src="/js/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="/js/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="/js/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="/js/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="/js/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
     <script>
-        $(function () {
-            $("#jsgrid-admin-members").jsGrid({
-                height: "100%",
-                width: "100%",
+        function deleteAdmin(memberId) {
+            console.log(memberId);
 
-                inserting: true,
-                editing: true,
-                sorting: true,
-                paging: false,
+            if(confirm("선택하신 어드민 계정을 삭제하시겠습니까?")) {
+                const url = "/api/admin/members/" + memberId;
 
-                data: [
-                    {
-                        "memberId": "yun",
-                        "nickname": "Yun",
-                        "email": "yun@email.com",
-                        "memo": "test memo.",
-                        "roleTypes": "ADMIN",
-                        "createdBy": "Yun",
-                        "createdAt": "2022-01-01 00:00:00"
+                $.ajax({
+                    type: "delete",
+                    url: url,
+                    success: function () {
+                        location.href = "/admin/members";
+                    },
+                    error: function () {
+                        alert("삭제 실패");
                     }
-                ],
-
-                fields: [
-                    { name: "memberId", title: "유저 ID", type: "text", width: 70 },
-                    { name: "nickname", title: "닉네임", type: "text", width: 60 },
-                    { name: "email", title: "이메일", type: "text", width: 120 },
-                    { name: "memo", title: "메모", type: "text", width: 150 },
-                    { name: "roleTypes", title: "권한", type: "select", items: [{"name": "ADMIN", "description": "관리자"}], valueField: "name", textField: "description", width: 100 },
-                    { name: "createdBy", title: "작성자", type: "text", width: 60 },
-                    { name: "createdAt", title: "작성일시", type: "text", width: 100 },
-                    { type: "control" }
-                ]
-            });
-        });
+                })
+            }
+        }
     </script>
 </body>
 </html>

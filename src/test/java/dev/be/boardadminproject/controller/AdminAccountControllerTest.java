@@ -47,7 +47,7 @@ class AdminAccountControllerTest {
     @DisplayName("[view][GET] 어드민 회원 페이지 - 정상 호출")
     @Test
     void givenAuthorizedMember_whenRequestingAdminMembersView_thenReturnsAdminMembersView() throws Exception {
-        mvc.perform(get("/management/members"))
+        mvc.perform(get("/admin/members"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(view().name("admin/members"));
